@@ -3,10 +3,27 @@
 {% block title %}{{ issue.title }}{% endblock title %}
 
 {% block content %}
-<h1>{{ issue.title }}</h1>
-<h4>{{ issue.status }}</h4>
-<h5>Requested by {{ issue.requester }} on {{ issue.created_on }}</h5>
-<h5>Assigned to {{ issue.assignee }}</h5>
-<p>Summary: {{ issue.summary }}</p>
-<p>Description: {{ issue.description }}</p>
+<div class="detail-container my-5">
+    <div class="detail-header">
+        <h1 class="text-center">{{ issue.title }}</h1>
+        <h4 class="text-center" style="color: blue;">{{ issue.status }}</h4>
+        <h4 class="text-center">Requested by {{ issue.requester }} on {{ issue.created_on }} - Assigned to {{ issue.assignee }}</h4>
+    </div>
+    <div class="detail-body">
+        <h5>Summary</h5>
+        <p>{{ issue.summary }}</p>
+        <h5>Description</h5>
+        <p>{{ issue.description }}</p>
+    </div>
+    {% if issue.requester == user %}
+        <div class="detail-footer row mt-4">
+            <div class="col-auto">
+                <a href="{% url 'update' issue.id %}" class="btn btn-success">Update</a>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'delete' issue.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
 {% endblock content %}

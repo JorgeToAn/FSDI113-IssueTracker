@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Issue List</h1>
-<ul class="nav justify-content-center">
+<ul class="nav justify-content-center navlist">
     <li class="nav-item">
         <a class="nav-link" href="{% url 'list' %}">All</a>
     </li>
@@ -20,17 +20,22 @@
 </ul>
 {% if issue_list %}
     {% for issue in issue_list %}
-    <div class="card">
+    <div class="card my-3">
         <div class="card-body">
             <h5 class="card-title">{{ issue.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
             <p class="card-text">{{ issue.description }}</p>
             <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
-            <a href="#" class="card-link">Another link</a>
+            {% if issue.requester == user %}
+                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
 {% else %}
-    <h4 class="text-center">Hmmm, looks kinda lonely out here.</h4>
+    <div class="box-container">
+        <h4 class="text-center my-5">Hmmm, looks kinda lonely out here.</h4>
+    </div>
 {% endif %}
 {% endblock content %}
