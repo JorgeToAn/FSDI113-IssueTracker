@@ -2,6 +2,12 @@
 
 This projects presents a Django application as the competency report for FSDI113.
 
+## Heroku
+
+<https://mysterious-headland-31746.herokuapp.com/>
+
+<https://git.heroku.com/mysterious-headland-31746.git>
+
 ## Functionality
 
 On the project you are able to create a user (username, password), then you can log in into the page with your user.
