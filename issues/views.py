@@ -14,10 +14,17 @@ class IssueContextListView(LoginRequiredMixin, ListView):
     model = Issue
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        account = Account.objects.filter(pk=self.request.user.id).get()
         issue_status = Status.objects.get(name=kwargs["status_name"])
-        context['issue_list'] = Issue.objects.filter(
-                                requester=self.request.user).filter(
+        context = super().get_context_data(**kwargs)
+
+        if account.role != MANAGER_ROLE:
+            context['issue_list'] = Issue.objects.filter(
+                                    requester=self.request.user).filter(
+                                        status=issue_status).order_by(
+                                            "created_on")
+        else:
+            context['issue_list'] = Issue.objects.filter(
                                     status=issue_status).order_by(
                                         "created_on")
         return context
