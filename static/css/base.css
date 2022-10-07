@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+
+/* GLOBAL */
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.content {
+    min-height: 83.6vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    background-color: #f84545 !important;
+}
+
+.dropdown-menu {
+    background-color: #f84545 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #cf3939 !important;
+}
+
+.footer {
+    background-color: #f84545;
+}
+
+
+/* BANNER */
+img.banner {
+    width: 100%;
+}
+
+.banner-text h1{
+    font-size: 8vw;
+}
+
+.banner-text h2{
+    font-size: 3vw;
+}
+
+/* CARD */
+.text-bg-dark {
+    background-color: #181818 !important;
+}

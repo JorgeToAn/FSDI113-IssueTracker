@@ -4,13 +4,21 @@
 {% block title %}Update {{ issue.title }}{% endblock title %}
 
 {% block content %}
-<h1>Update "{{ issue.title }}"</h1>
-<form method="post">
-    {% csrf_token %}
-    <div class="my-3">
-        {{ form|crispy }}
-    </div>
-    <input type="submit" value="Update" class="btn btn-success">
-    <a href="{% url 'detail' issue.id %}" class="btn btn-outline-primary">Cancel</a>
-</form>
+<div class="container">
+    <h1 class="text-center my-3 bg-primary">Update "{{ issue.title }}"</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="my-3">
+            {{ form|crispy }}
+        </div>
+        <div class="row mt-4">
+            <div class="col-auto">
+                <input type="submit" value="Update" class="btn btn-success">
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'detail' issue.id %}" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock content %}

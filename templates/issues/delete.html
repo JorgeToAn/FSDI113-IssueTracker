@@ -3,11 +3,20 @@
 {% block title %}Delete {{ issue.title }}{% endblock title %}
 
 {% block content %}
-<h1>Delete "{{ issue.title }}"?</h1>
-<p style="color: red;">You won't be able to recover once you delete it!</p>
-<form method="post">
-    {% csrf_token %}
-    <input type="submit" value="Delete" class="btn btn-danger">
-    <a href="{% url 'detail' issue.id %}" class="btn btn-success">Cancel</a>
-</form>
+<div class="container">
+    <h1 class="text-center my-3 bg-danger">Delete "{{ issue.title }}"?</h1>
+    <h3 class="text-center">You won't be able to recover it once you delete it!</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="w-100" style="height: 5vh;"></div>
+        <div class="row mt-4 text-center">
+            <div class="w-50">
+                <input type="submit" value="Delete" class="btn btn-danger">
+            </div>
+            <div class="w-50">
+                <a href="{% url 'detail' issue.id %}" class="btn btn-success">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock content %}

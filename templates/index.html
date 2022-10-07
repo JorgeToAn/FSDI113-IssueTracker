@@ -1,10 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Issue Tracker - Home{% endblock title %}
 
 {% block content %}
-<h1 class="text-center">Home</h1>
-<p class="text-center fs-3">Welcome to BUGSER!</p>
-<p>This is the newest issue tracker app made for you, remember to log in to access all features of the site.</p>
-<p>If you don't have an account yet, go ahead and sign up!</p>
+<div class="position-relative">
+    <img src="{% static 'img/bugser-banner.jpg' %}" alt="banner" class="img-fluid banner">
+
+    <div class="banner-text position-absolute top-50 start-50 translate-middle bg-primary">
+        <h1 class="text-center">Home</h1>
+        <h2 class="text-center">Welcome to BUGSER!</h2>
+    </div>
+</div>
+<div class="w-100" style="height: 10vw;"></div>
+<div style="background-color: #181818; padding:2rem 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <p>This is the newest issue tracker app made for you.</p>
+                <p>
+                    As part of the FSDI course this project presents an issue tracker web application, where you are able to create a user with one of three roles (customer, agent and manager).<br>
+                    Issues are made up of a title, summary, description, requester, assignee and one of three status (To Do, In Progress and Done).<br>
+                    You are able to create issues to track with any account role but only agents and managers are allowed to be selected as assignee.
+                </p>
+                <p>
+                    In the "Issues" section you are provided with a view of all issues you have created on the site, if you are a manager then you can view all issues that exist.<br>
+                    You also have access to a navbar to view issues filtered by their status.
+                </p>
+            </div>
+            <div class="col-8">
+                <img src="{% static 'img/userexample.jpg' %}" alt="user-img" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-100" style="height: 7vw;"></div>
+<div class="container text-center">
+    <h2 class="fs-1 bg-primary">Join Us</h2>
+    <div class="row my-5">
+        <div class="col-5 p-4 border rounded-pill">
+            <h4>Get Started</h4>
+            <a href="{% url 'login' %}" class="btn btn-success">Log In</a>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5 p-4 border rounded-pill">
+            <h4>Don't have an account?</h4>
+            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+</div>
+<div class="w-100" style="height: 10vw;"></div>
 {% endblock content %}

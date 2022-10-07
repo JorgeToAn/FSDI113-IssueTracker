@@ -4,12 +4,14 @@
 {% block title %}Sign Up{% endblock title %}
 
 {% block content %}
-<h1>Sign Up</h1>
-<form method="post">
-    {% csrf_token %}
-    <div class="my-3">
-        {{ form|crispy }}
-    </div>
-    <input type="submit" value="Sign Up" class="btn btn-success">
-</form>
+<div class="container">
+    <h1 class="text-center my-3 bg-primary">Sign Up</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="my-3">
+            {{ form|crispy }}
+        </div>
+        <input type="submit" value="Sign Up" class="btn btn-success">
+    </form>
+</div>
 {% endblock content %}

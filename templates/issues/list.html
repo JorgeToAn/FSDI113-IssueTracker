@@ -1,92 +1,97 @@
 <!-- Shows the list of issues organized by their status -->
-
 {% extends 'base.html' %}
 
 {% block title %}List{% endblock title %}
 
 {% block content %}
-<h1>Issue List</h1>
-<ul class="nav justify-content-center navlist">
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'list' %}">All</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'todo_list' %}">To Do</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'in_progress_list' %}">In Progress</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'done_list' %}">Done</a>
-    </li>
-</ul>
-{% if issue_list %}
-    <div class="row">
-        <div class="col-md-4">
-            <h4 class="text-center">To Do</h4>
-            {% for issue in issue_list %}
-                {% if issue.status.name == 'To Do' %}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ issue.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
-                            <p class="card-text">{{ issue.description }}</p>
-                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
-                            {% if issue.requester == user %}
-                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
-                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
-                            {% endif %}
+<div class="container">
+    <h1 class="text-center my-3 bg-primary">Issue List</h1>
+    <ul class="nav justify-content-center navlist">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'list' %}">All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'todo_list' %}">To Do</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'in_progress_list' %}">In Progress</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'done_list' %}">Done</a>
+        </li>
+    </ul>
+</div>
+<div class="mx-5">
+    {% if issue_list %}
+        <div class="row">
+            <div class="col-md-4 border-end">
+                <h4 class="text-center">To Do</h4>
+                {% for issue in issue_list %}
+                    {% if issue.status.name == 'To Do' %}
+                        <div class="card my-3 text-bg-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ issue.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }} - Requested by {{ issue.requester }}</h6>
+                                <p class="card-text">{{ issue.description }}</p>
+                                <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                                {% if issue.requester == user %}
+                                    <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                    <a href="{% url 'delete' issue.id %}" class="card-link text-danger">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <!-- Breaks the column view into rows on midsized viewports -->
-        <div class="w-100 d-md-none"></div>
-        <div class="col-md-4">
-            <h4 class="text-center">In Progress</h4>
-            {% for issue in issue_list %}
-                {% if issue.status.name == 'In Progress' %}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ issue.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
-                            <p class="card-text">{{ issue.description }}</p>
-                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
-                            {% if issue.requester == user %}
-                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
-                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
-                            {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Breaks the column view into rows on midsized viewports -->
+            <div class="w-100 d-md-none"></div>
+            <div class="col-md-4 border-end">
+                <h4 class="text-center">In Progress</h4>
+                {% for issue in issue_list %}
+                    {% if issue.status.name == 'In Progress' %}
+                        <div class="card my-3 text-bg-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ issue.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }} - Requested by {{ issue.requester }}</h6>
+                                <p class="card-text">{{ issue.description }}</p>
+                                <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                                {% if issue.requester == user %}
+                                    <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                    <a href="{% url 'delete' issue.id %}" class="card-link text-danger">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <!-- Breaks the column view into rows on midsized viewports -->
-        <div class="w-100 d-md-none"></div>
-        <div class="col-md-4">
-            <h4 class="text-center">Done</h4>
-            {% for issue in issue_list %}
-                {% if issue.status.name == 'Done' %}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ issue.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
-                            <p class="card-text">{{ issue.description }}</p>
-                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
-                            {% if issue.requester == user %}
-                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
-                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
-                            {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Breaks the column view into rows on midsized viewports -->
+            <div class="w-100 d-md-none"></div>
+            <div class="col-md-4">
+                <h4 class="text-center">Done</h4>
+                {% for issue in issue_list %}
+                    {% if issue.status.name == 'Done' %}
+                        <div class="card my-3 text-bg-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ issue.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }} - Requested by {{ issue.requester }}</h6>
+                                <p class="card-text">{{ issue.description }}</p>
+                                <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                                {% if issue.requester == user %}
+                                    <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                    <a href="{% url 'delete' issue.id %}" class="card-link text-danger">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-{% else %}
-    <div class="box-container">
-        <h4 class="text-center my-5">Hmmm, looks kinda lonely out here.</h4>
-    </div>
-{% endif %}
+    {% else %}
+        <div class="container text-center">
+            <h4 class="my-5">Hmmm, looks kinda lonely out here.</h4>
+            <p>Looks like you haven't created any issues.</p>
+            <a href="{% url 'new' %}" class="btn btn-success">Create</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock content %}
