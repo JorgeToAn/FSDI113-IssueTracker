@@ -24,7 +24,7 @@
 <div class="mx-5">
     {% if issue_list %}
         <div class="row">
-            <div class="col-md-4 border-end">
+            <div class="col-md-4">
                 <h4 class="text-center">To Do</h4>
                 {% for issue in issue_list %}
                     {% if issue.status.name == 'To Do' %}
@@ -45,7 +45,7 @@
             </div>
             <!-- Breaks the column view into rows on midsized viewports -->
             <div class="w-100 d-md-none"></div>
-            <div class="col-md-4 border-end">
+            <div class="col-md-4">
                 <h4 class="text-center">In Progress</h4>
                 {% for issue in issue_list %}
                     {% if issue.status.name == 'In Progress' %}
