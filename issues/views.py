@@ -4,6 +4,9 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Issue, Status
 from .forms import IssueForm
+from accounts.models import Account
+
+MANAGER_ROLE = 'MANAGER'
 
 
 class IssueContextListView(LoginRequiredMixin, ListView):
@@ -24,11 +27,18 @@ class IssueListView(LoginRequiredMixin, ListView):
     model = Issue
 
     def get_context_data(self, **kwargs):
+        account = Account.objects.filter(pk=self.request.user.id).get()
         context = super().get_context_data(**kwargs)
-        context['issue_list'] = Issue.objects.filter(
-                                requester=self.request.user).order_by(
-                                        "created_on")
+
+        if account.role != MANAGER_ROLE:
+            context['issue_list'] = Issue.objects.filter(
+                                    requester=self.request.user).order_by(
+                                            "created_on")
+        else:
+            context['issue_list'] = Issue.objects.all()
+        
         return context
+        
 
 class IssueToDoListView(IssueContextListView):
     status = "To Do"
@@ -54,7 +64,8 @@ class IssueDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def test_func(self):
         issue_obj = self.get_object()
-        return issue_obj.requester == self.request.user
+        account = Account.objects.filter(pk=self.request.user.id).get()
+        return issue_obj.requester == account or account.role == MANAGER_ROLE
 
 class IssueCreateView(LoginRequiredMixin, CreateView):
     template_name: str='issues/new.html'
