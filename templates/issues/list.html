@@ -1,3 +1,5 @@
+<!-- Shows the list of issues organized by their status -->
+
 {% extends 'base.html' %}
 
 {% block title %}List{% endblock title %}
@@ -19,20 +21,69 @@
     </li>
 </ul>
 {% if issue_list %}
-    {% for issue in issue_list %}
-    <div class="card my-3">
-        <div class="card-body">
-            <h5 class="card-title">{{ issue.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
-            <p class="card-text">{{ issue.description }}</p>
-            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
-            {% if issue.requester == user %}
-                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
-                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
-            {% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="text-center">To Do</h4>
+            {% for issue in issue_list %}
+                {% if issue.status.name == 'To Do' %}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ issue.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
+                            <p class="card-text">{{ issue.description }}</p>
+                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                            {% if issue.requester == user %}
+                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!-- Breaks the column view into rows on midsized viewports -->
+        <div class="w-100 d-md-none"></div>
+        <div class="col-md-4">
+            <h4 class="text-center">In Progress</h4>
+            {% for issue in issue_list %}
+                {% if issue.status.name == 'In Progress' %}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ issue.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
+                            <p class="card-text">{{ issue.description }}</p>
+                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                            {% if issue.requester == user %}
+                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!-- Breaks the column view into rows on midsized viewports -->
+        <div class="w-100 d-md-none"></div>
+        <div class="col-md-4">
+            <h4 class="text-center">Done</h4>
+            {% for issue in issue_list %}
+                {% if issue.status.name == 'Done' %}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ issue.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ issue.status }}</h6>
+                            <p class="card-text">{{ issue.description }}</p>
+                            <a href="{% url 'detail' issue.id %}" class="card-link">Detail</a>
+                            {% if issue.requester == user %}
+                                <a href="{% url 'update' issue.id %}" class="card-link">Update</a>
+                                <a href="{% url 'delete' issue.id %}" class="card-link" style="color: red;">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
 {% else %}
     <div class="box-container">
         <h4 class="text-center my-5">Hmmm, looks kinda lonely out here.</h4>

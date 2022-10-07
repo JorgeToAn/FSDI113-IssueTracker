@@ -3,10 +3,11 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Issue, Status
+from .forms import IssueForm
 
 
 class IssueContextListView(LoginRequiredMixin, ListView):
-    template_name: str='issues/list.html'
+    template_name: str='issues/list_status.html'
     model = Issue
 
     def get_context_data(self, **kwargs):
@@ -58,7 +59,7 @@ class IssueDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 class IssueCreateView(LoginRequiredMixin, CreateView):
     template_name: str='issues/new.html'
     model = Issue
-    fields = ['title', 'summary', 'description', 'assignee', 'status']
+    form_class = IssueForm
 
     def form_valid(self, form):
         form.instance.requester = self.request.user
@@ -67,7 +68,7 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
 class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name: str='issues/update.html'
     model = Issue
-    fields = ['title', 'summary', 'description', 'assignee', 'status']
+    form_class = IssueForm
 
     def test_func(self):
         issue_obj = self.get_object()
